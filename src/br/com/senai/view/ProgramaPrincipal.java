@@ -3,6 +3,7 @@ package br.com.senai.view;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.senai.controller.LojaController;
+import br.com.senai.model.Carrinho;
 import br.com.senai.model.ProdutoModel;
 
 public class ProgramaPrincipal {
@@ -10,6 +11,7 @@ public class ProgramaPrincipal {
 	public static void main(String[] args) {
 		
 		List<ProdutoModel> produtos = new ArrayList<ProdutoModel>();
+		List<Carrinho> carrinhos = new ArrayList<Carrinho>();
 
 		LojaController lojaController = new LojaController();		
 		
@@ -26,12 +28,22 @@ public class ProgramaPrincipal {
 			case 2:
 				lojaController.consultarProdutos(produtos);
 				break;
+			case 3:
+				lojaController.editarProduto(produtos);
+				break;
+			case 4:
+				lojaController.removerProduto(produtos);
+				break;
+			case 5:
+				
+				break;
 			case 9:
 				sair = true;
 				break;
 			default:
-				System.out.println("ERRO OPCAO INVÁLIDA");
+				System.out.println("!!!ERRO OPCAO INVÁLIDA!!!");
 				break;
+				
 			}
 		}while(!sair);
 	}

@@ -2,8 +2,6 @@ package br.com.senai.controller;
 
 import java.util.List;
 import java.util.Scanner;
-
-import br.com.senai.model.Carrinho;
 import br.com.senai.model.ProdutoModel;
 
 public class LojaController {
@@ -16,7 +14,7 @@ public class LojaController {
 
 	public void menu() {
 		System.out.println("\n----MENU----\n" + "1) Cadastrar itens\n" + "2) Listar estoque\n" + "3) Editar item\n"
-				+ "4) Remover item\n" + "5) Realizar venda\n" + "9) Sair do sistema\n" + "----------------------");
+				+ "4) Remover item\n" + "5) Adicionar ao carrinho\n" + "6) Consultar carrinho\n" + "7) Pagar\n" + "9) Sair do sistema\n" + "----------------------");
 	}
 
 	public int opcao() {
@@ -135,48 +133,6 @@ public class LojaController {
 		produtos.remove(idDoProduto - 1);
 
 		return;
-	}
-
-	public Carrinho cadastrarCarrinho() {
-		List<ProdutoModel> produtos;
-		Carrinho carrinhos = new Carrinho();
-
-		System.out.println("--- ADICIONAR PRODUTOS AO CARRINHO ---");
-		
-		this.consultarProdutos(produtos);
-		
-		System.out.print("ID do Produto: ");
-		int i = scanner.nextInt();
-		carrinhos.setNomeDoProduto(produtos.get(i-1).getNomeDoProduto());
-		System.out.print("Quantidade: ");
-		carrinhos.setQuantidadeDeProduto(scanner.nextInt());
-		carrinhos.setValorItem(produtos.get(i).getPrecoDoProduto() * carrinhos.getQuantidadeDeProduto());
-
-		return carrinhos;
-
-	}
-	
-	public List<Carrinho> consultarCarrinho(List<Carrinho> carrinhos) {
-
-		
-		System.out.println("\n-------------- PRODUTOS NO CARRINHO ------------- \n");
-		System.out.printf(" | %2s | %10s | %8s | %4s | %9s |\n", "ID", "Produto", "Preço", "Qtd", "R$ TOTAL");
-
-		if(carrinhos.size()<=0) {
-			System.out.println("\n-------------- CARRINHO VAZIO ------------------ \n");
-			return carrinhos;
-		}
-		for (int i = 0; i < carrinhos.size(); i++) {
-			System.out.printf(" | %2s | %10s | %8s | %4s | --------- |\n", i + 1, carrinhos.get(i).getNomeDoProduto(),
-					carrinhos.get(i).getPrecoDoProduto(), carrinhos.get(i).getQuantidadeDeProduto());
-			
-
-		}
-		
-		System.out.printf(" | -- | ---------- | -------- | ---- | %9s |\n", carrinhos.get(0).getValorTotal());
-
-		return carrinhos;
-
 	}
 
 }

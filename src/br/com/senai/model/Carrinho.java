@@ -1,32 +1,55 @@
 package br.com.senai.model;
 
-public class Carrinho extends ProdutoModel{
-	private double valorTotal, valorItem;
-	
-	public Carrinho(float valorTotal, float valorItem) {
-		super();
-		this.valorTotal = valorTotal;
-		this.valorItem = valorItem;
-	}
+public class Carrinho{
+	// Atributos
+	private String nomeDoProdutoComprado;
+	private double precoDoProdutoComprado;
+	private int quantidadeDoProdutoComprado;
+	private double PrecoFinalProdutoComprado;
 
+	// Construtores
 	public Carrinho() {
 	}
 
-	public double getValorTotal() {
-		return valorTotal;
+	public Carrinho(String nomeDoProdutoComprado, double precoDoProdutoComprado, int quantidadeDoProdutoComprado,
+			double PrecoFinalProdutoComprado) {
+		super();
+		this.nomeDoProdutoComprado = nomeDoProdutoComprado;
+		this.precoDoProdutoComprado = precoDoProdutoComprado;
+		this.quantidadeDoProdutoComprado = quantidadeDoProdutoComprado;
+		this.PrecoFinalProdutoComprado = PrecoFinalProdutoComprado;
 	}
 
-	public void setValorTotal(float valorTotal) {
-		this.valorTotal = valorTotal;
+	public String getNomeDoProdutoComprado() {
+		return nomeDoProdutoComprado;
 	}
 
-	public double getValorItem() {
-		return valorItem;
+	public void setNomeDoProdutoComprado(String nomeDoProdutoComprado) {
+		this.nomeDoProdutoComprado = nomeDoProdutoComprado;
 	}
 
-	public void setValorItem(double valorItem) {
-		this.valorItem = valorItem;
+	public double getPrecoDoProdutoComprado() {
+		return precoDoProdutoComprado;
 	}
-	
-	
+
+	public void setPrecoDoProdutoComprado(double precoDoProdutoComprado) {
+		this.precoDoProdutoComprado = precoDoProdutoComprado;
+	}
+
+	public int getQuantidadeDoProdutoComprado() {
+		return quantidadeDoProdutoComprado;
+	}
+
+	public void setQuantidadeDoProdutoComprado(int quantidadeDoProdutoComprado) {
+		this.quantidadeDoProdutoComprado = quantidadeDoProdutoComprado;
+	}
+
+	public double getPrecoFinalProdutoComprado() {
+		return PrecoFinalProdutoComprado;
+	}
+
+	public void setPrecoFinalProdutoComprado(double precoFinalProdutoComprado) {
+		PrecoFinalProdutoComprado = precoFinalProdutoComprado;
+	}
+
 }

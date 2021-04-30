@@ -3,9 +3,9 @@ package br.com.senai.model;
 public class ProdutoModel {
 	// ATRIBUTOS
 	private String nomeDoProduto;
-	private float precoDoProduto;
+	private double precoDoProduto;
 	private int quantidadeDeProduto;
-	private float saldoEmEstoque;
+	private double saldoEmEstoque;
 
 	// CONSTRUTORES
 
@@ -43,8 +43,8 @@ public class ProdutoModel {
 		return precoDoProduto;
 	}
 
-	public void setPrecoDoProduto(float precoDoProduto) {
-		this.precoDoProduto = precoDoProduto;
+	public void setPrecoDoProduto(double d) {
+		this.precoDoProduto = d;
 	}
 
 	public int getQuantidadeDeProduto() {
@@ -59,7 +59,7 @@ public class ProdutoModel {
 		return saldoEmEstoque;
 	}
 
-	public void setSaldoEmEstoque(float saldoEmEstoque) {
-		this.saldoEmEstoque = saldoEmEstoque;
+	public void setSaldoEmEstoque(double d) {
+		this.saldoEmEstoque = d;
 	}
 }

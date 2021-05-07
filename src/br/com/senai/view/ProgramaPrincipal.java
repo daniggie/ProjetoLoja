@@ -2,9 +2,9 @@ package br.com.senai.view;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import br.com.senai.controller.CarrinhoController;
 import br.com.senai.controller.ProdutoController;
+import br.com.senai.controller.carrinho.AdicionaProdutoNoCarrinho;
+import br.com.senai.controller.carrinho.ListaCarrinho;
 import br.com.senai.model.CarrinhoModel;
 import br.com.senai.model.ProdutoModel;
 
@@ -15,7 +15,8 @@ public class ProgramaPrincipal {
 		List<ProdutoModel> produtos = new ArrayList<ProdutoModel>();
 		List<CarrinhoModel> carrinhos = new ArrayList<CarrinhoModel>();
 		ProdutoController produtoController = new ProdutoController();
-		CarrinhoController carrinhoController = new CarrinhoController();
+		ListaCarrinho listaCarrinho = new ListaCarrinho();
+		AdicionaProdutoNoCarrinho adiciona = new AdicionaProdutoNoCarrinho();
 
 		boolean sair = false;
 
@@ -39,10 +40,10 @@ public class ProgramaPrincipal {
 				produtoController.removerProduto(produtos);
 				break;
 			case 5:
-				carrinhoController.adicionarCarrinho(produtos, carrinhos);
+				adiciona.adicionarCarrinho(produtos, carrinhos);
 				break;
 			case 6:
-				carrinhoController.listarProdutosCarrinho(carrinhos);
+				listaCarrinho.listarProdutosCarrinho(carrinhos);
 				break;
 			case 7:
 				produtoController.notaFiscal(carrinhos, cliente);

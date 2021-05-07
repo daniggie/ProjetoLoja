@@ -1,18 +1,15 @@
-package br.com.senai.controller;
+package br.com.senai.controller.carrinho;
 
 import java.util.List;
 import java.util.Scanner;
+
 import br.com.senai.controller.ProdutoController;
 import br.com.senai.model.CarrinhoModel;
 import br.com.senai.model.ProdutoModel;
 
-public class CarrinhoController {
+public class AdicionaProdutoNoCarrinho {
 
-	private Scanner sc;
-
-	public CarrinhoController() {
-		sc = new Scanner(System.in);
-	}
+	Scanner sc = new Scanner(System.in);
 
 	public void adicionarCarrinho(List<ProdutoModel> produtos, List<CarrinhoModel> produtosComprados) {
 		ProdutoController lojaController = new ProdutoController();
@@ -41,27 +38,6 @@ public class CarrinhoController {
 		carrinhoCompra.setPrecoFinalProdutoComprado(quantidadeDoProduto * carrinhoCompra.getPrecoDoProdutoComprado());
 		// return carrinhoCompra;
 		produtosComprados.add(carrinhoCompra);
-	}
-
-	public List<CarrinhoModel> listarProdutosCarrinho(List<CarrinhoModel> produtosComprados) {
-		System.out.printf("\n----------------- SEU CARRINHO ---------------\n");
-		System.out.printf("| %2s | %10s | %10s | %4s | %10s |\n", "ID", "Produto", " Preco", "Qtd ", "R$ Total");
-		for (int i = 0; i < produtosComprados.size(); i++) {
-			System.out.printf("| %2s | %10s | R$%8.2f | %4s | R$%8.2f |\n", i + 1,
-					produtosComprados.get(i).getNomeDoProdutoComprado(),
-					produtosComprados.get(i).getPrecoDoProdutoComprado(),
-					produtosComprados.get(i).getQuantidadeDoProdutoComprado(),
-					produtosComprados.get(i).getPrecoFinalProdutoComprado());
-		}
-		
-		float precoTotal = 0;
-		for (int i = 0; i < produtosComprados.size(); i++) {
-			precoTotal += produtosComprados.get(i).getPrecoFinalProdutoComprado();
-		}
-		
-		System.out.printf("| %3s  %10s  %10s  %6s | R$%8.2f |\n", "", "", "", "Total", precoTotal);
-		
-		return produtosComprados;
 	}
 
 }

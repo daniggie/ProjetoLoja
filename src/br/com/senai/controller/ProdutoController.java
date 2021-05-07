@@ -3,6 +3,7 @@ package br.com.senai.controller;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.senai.controller.carrinho.ListaCarrinho;
 import br.com.senai.model.CarrinhoModel;
 import br.com.senai.model.ProdutoModel;
 
@@ -16,7 +17,8 @@ public class ProdutoController {
 
 	public void menu() {
 		System.out.println("\n----MENU----\n" + "1) Cadastrar itens\n" + "2) Listar estoque\n" + "3) Editar item\n"
-				+ "4) Remover item\n" + "5) Adicionar ao carrinho\n" + "6) Consultar carrinho\n" + "7) Pagar\n" + "9) Sair do sistema\n" + "----------------------");
+				+ "4) Remover item\n" + "5) Adicionar ao carrinho\n" + "6) Consultar carrinho\n" + "7) Pagar\n"
+				+ "9) Sair do sistema\n" + "----------------------");
 	}
 
 	public String definirCliente() {
@@ -25,13 +27,13 @@ public class ProdutoController {
 		nome = scanner.next();
 		return nome;
 	}
-	
+
 	public void notaFiscal(List<CarrinhoModel> itensNoCarrinho, String cliente) {
-		CarrinhoController carrinho = new CarrinhoController();
+		ListaCarrinho carrinho = new ListaCarrinho();
 		carrinho.listarProdutosCarrinho(itensNoCarrinho);
 		System.out.println("Cliente: " + cliente);
 	}
-	
+
 	public int opcao() {
 		System.out.println("> ");
 		return scanner.nextInt();
@@ -98,29 +100,15 @@ public class ProdutoController {
 
 		switch (indexDoCampo) {
 		case 1:
-			System.out.print("Informe o novo nome do produto: ");
-			produto.setNomeDoProduto(scanner.next());
-
-			produto.setPrecoDoProduto(produtos.get(idDoProduto).getPrecoDoProduto());
-			produto.setQuantidadeDeProduto(produtos.get(idDoProduto).getQuantidadeDeProduto());
-			produto.setSaldoEmEstoque(produtos.get(idDoProduto).getSaldoEmEstoque());
+			editarNome(produtos, produto, idDoProduto);
 			break;
 		case 2:
-			System.out.print("Informe o novo preço do produto: ");
-			produto.setPrecoDoProduto(scanner.nextInt());
-
-			produto.setNomeDoProduto(produtos.get(idDoProduto).getNomeDoProduto());
-			produto.setSaldoEmEstoque(produtos.get(idDoProduto).getQuantidadeDeProduto() * produto.getPrecoDoProduto());
-
-			produtos.set(idDoProduto, produto);
+			editaPreco(produtos, produto, idDoProduto);
 			break;
 
 		case 3:
-			System.out.print("Informe a nova quantia do produto: ");
-			produto.setQuantidadeDeProduto(scanner.nextInt());
-
-			produto.setSaldoEmEstoque(produtos.get(idDoProduto).getPrecoDoProduto() * produto.getQuantidadeDeProduto());
-			produtos.set(idDoProduto, produto);
+			editarQuantidade(produtos, produto, idDoProduto);
+			break;
 
 		default:
 			System.out.println("Opção invalida!!!");
@@ -129,6 +117,40 @@ public class ProdutoController {
 		}
 
 		return null;
+	}
+
+	private ProdutoModel editarQuantidade(List<ProdutoModel> produtos, ProdutoModel produto, int idDoProduto) {
+		System.out.print("Informe a nova quantia do produto: ");
+		produto.setQuantidadeDeProduto(scanner.nextInt());
+
+		produto.setSaldoEmEstoque(produtos.get(idDoProduto).getPrecoDoProduto() * produto.getQuantidadeDeProduto());
+		produtos.set(idDoProduto, produto);
+
+		return produto;
+	}
+
+	private ProdutoModel editaPreco(List<ProdutoModel> produtos, ProdutoModel produto, int idDoProduto) {
+		System.out.print("Informe o novo preço do produto: ");
+		produto.setPrecoDoProduto(scanner.nextInt());
+
+		produto.setNomeDoProduto(produtos.get(idDoProduto).getNomeDoProduto());
+		produto.setSaldoEmEstoque(produtos.get(idDoProduto).getQuantidadeDeProduto() * produto.getPrecoDoProduto());
+
+		produtos.set(idDoProduto, produto);
+		return produto;
+	}
+
+	private ProdutoModel editarNome(List<ProdutoModel> produtos, ProdutoModel produto, int idDoProduto) {
+		System.out.print("Informe o novo nome do produto: ");
+		produto.setNomeDoProduto(scanner.next());
+
+		produto.setPrecoDoProduto(produtos.get(idDoProduto).getPrecoDoProduto());
+		produto.setQuantidadeDeProduto(produtos.get(idDoProduto).getQuantidadeDeProduto());
+		produto.setSaldoEmEstoque(produtos.get(idDoProduto).getSaldoEmEstoque());
+
+		produtos.set(idDoProduto, produto);
+
+		return produto;
 	}
 
 	public void removerProduto(List<ProdutoModel> produtos) {

@@ -4,39 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.senai.controller.CarrinhoController;
-import br.com.senai.controller.LojaController;
-import br.com.senai.model.Carrinho;
+import br.com.senai.controller.ProdutoController;
+import br.com.senai.model.CarrinhoModel;
 import br.com.senai.model.ProdutoModel;
 
 public class ProgramaPrincipal {
 
 	public static void main(String[] args) {
-		
+
 		List<ProdutoModel> produtos = new ArrayList<ProdutoModel>();
-		List<Carrinho> carrinhos = new ArrayList<Carrinho>();
-		LojaController lojaController = new LojaController();
+		List<CarrinhoModel> carrinhos = new ArrayList<CarrinhoModel>();
+		ProdutoController produtoController = new ProdutoController();
 		CarrinhoController carrinhoController = new CarrinhoController();
-		
+
 		boolean sair = false;
-		
-		String cliente = lojaController.definirCliente();
-		
+
+		String cliente = produtoController.definirCliente();
+
 		do {
-			lojaController.menu();
-			int opcao = lojaController.opcao();
-	
-			switch(opcao) {
+			produtoController.menu();
+			int opcao = produtoController.opcao();
+
+			switch (opcao) {
 			case 1:
-				produtos.add(lojaController.cadastrarProdutos());
+				produtos.add(produtoController.cadastrarProdutos());
 				break;
 			case 2:
-				lojaController.consultarProdutos(produtos);
+				produtoController.consultarProdutos(produtos);
 				break;
 			case 3:
-				lojaController.editarProduto(produtos);
+				produtoController.editarProduto(produtos);
 				break;
 			case 4:
-				lojaController.removerProduto(produtos);
+				produtoController.removerProduto(produtos);
 				break;
 			case 5:
 				carrinhoController.adicionarCarrinho(produtos, carrinhos);
@@ -45,7 +45,7 @@ public class ProgramaPrincipal {
 				carrinhoController.listarProdutosCarrinho(carrinhos);
 				break;
 			case 7:
-				lojaController.notaFiscal(carrinhos, cliente);
+				produtoController.notaFiscal(carrinhos, cliente);
 				break;
 			case 9:
 				sair = true;
@@ -53,9 +53,9 @@ public class ProgramaPrincipal {
 			default:
 				System.out.println("!!!ERRO OPCAO INVÁLIDA!!!");
 				break;
-				
+
 			}
-		}while(!sair);
+		} while (!sair);
 	}
 
 }

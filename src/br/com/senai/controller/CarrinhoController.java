@@ -2,8 +2,8 @@ package br.com.senai.controller;
 
 import java.util.List;
 import java.util.Scanner;
-import br.com.senai.controller.LojaController;
-import br.com.senai.model.Carrinho;
+import br.com.senai.controller.ProdutoController;
+import br.com.senai.model.CarrinhoModel;
 import br.com.senai.model.ProdutoModel;
 
 public class CarrinhoController {
@@ -14,8 +14,8 @@ public class CarrinhoController {
 		sc = new Scanner(System.in);
 	}
 
-	public void adicionarCarrinho(List<ProdutoModel> produtos, List<Carrinho> produtosComprados) {
-		LojaController lojaController = new LojaController();
+	public void adicionarCarrinho(List<ProdutoModel> produtos, List<CarrinhoModel> produtosComprados) {
+		ProdutoController lojaController = new ProdutoController();
 		lojaController.consultarProdutos(produtos);
 		System.out.print("ID do produto desejado: ");
 		int idDoProduto = sc.nextInt();
@@ -34,7 +34,7 @@ public class CarrinhoController {
 				.setQuantidadeDeProduto(produtos.get(idDoProduto).getQuantidadeDeProduto() - quantidadeDoProduto);
 		produtos.get(idDoProduto).setSaldoEmEstoque(
 				produtos.get(idDoProduto).getQuantidadeDeProduto() * produtos.get(idDoProduto).getPrecoDoProduto());
-		Carrinho carrinhoCompra = new Carrinho();
+		CarrinhoModel carrinhoCompra = new CarrinhoModel();
 		carrinhoCompra.setNomeDoProdutoComprado(produtos.get(idDoProduto).getNomeDoProduto());
 		carrinhoCompra.setPrecoDoProdutoComprado(produtos.get(idDoProduto).getPrecoDoProduto());
 		carrinhoCompra.setQuantidadeDoProdutoComprado(quantidadeDoProduto);
@@ -43,7 +43,7 @@ public class CarrinhoController {
 		produtosComprados.add(carrinhoCompra);
 	}
 
-	public List<Carrinho> listarProdutosCarrinho(List<Carrinho> produtosComprados) {
+	public List<CarrinhoModel> listarProdutosCarrinho(List<CarrinhoModel> produtosComprados) {
 		System.out.printf("\n----------------- SEU CARRINHO ---------------\n");
 		System.out.printf("| %2s | %10s | %10s | %4s | %10s |\n", "ID", "Produto", " Preco", "Qtd ", "R$ Total");
 		for (int i = 0; i < produtosComprados.size(); i++) {

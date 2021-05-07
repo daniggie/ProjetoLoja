@@ -3,14 +3,14 @@ package br.com.senai.controller;
 import java.util.List;
 import java.util.Scanner;
 
-import br.com.senai.model.Carrinho;
+import br.com.senai.model.CarrinhoModel;
 import br.com.senai.model.ProdutoModel;
 
-public class LojaController {
+public class ProdutoController {
 
 	private Scanner scanner;
 
-	public LojaController() {
+	public ProdutoController() {
 		scanner = new Scanner(System.in);
 	}
 
@@ -26,7 +26,7 @@ public class LojaController {
 		return nome;
 	}
 	
-	public void notaFiscal(List<Carrinho> itensNoCarrinho, String cliente) {
+	public void notaFiscal(List<CarrinhoModel> itensNoCarrinho, String cliente) {
 		CarrinhoController carrinho = new CarrinhoController();
 		carrinho.listarProdutosCarrinho(itensNoCarrinho);
 		System.out.println("Cliente: " + cliente);

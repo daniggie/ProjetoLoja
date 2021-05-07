@@ -1,6 +1,6 @@
 package br.com.senai.model;
 
-public class Carrinho{
+public class CarrinhoModel{
 	// Atributos
 	private String nomeDoProdutoComprado;
 	private double precoDoProdutoComprado;
@@ -8,10 +8,10 @@ public class Carrinho{
 	private double PrecoFinalProdutoComprado;
 
 	// Construtores
-	public Carrinho() {
+	public CarrinhoModel() {
 	}
 
-	public Carrinho(String nomeDoProdutoComprado, double precoDoProdutoComprado, int quantidadeDoProdutoComprado,
+	public CarrinhoModel(String nomeDoProdutoComprado, double precoDoProdutoComprado, int quantidadeDoProdutoComprado,
 			double PrecoFinalProdutoComprado) {
 		super();
 		this.nomeDoProdutoComprado = nomeDoProdutoComprado;

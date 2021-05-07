@@ -2,6 +2,8 @@ package br.com.senai.controller;
 
 import java.util.List;
 import java.util.Scanner;
+
+import br.com.senai.model.Carrinho;
 import br.com.senai.model.ProdutoModel;
 
 public class LojaController {
@@ -17,6 +19,19 @@ public class LojaController {
 				+ "4) Remover item\n" + "5) Adicionar ao carrinho\n" + "6) Consultar carrinho\n" + "7) Pagar\n" + "9) Sair do sistema\n" + "----------------------");
 	}
 
+	public String definirCliente() {
+		String nome;
+		System.out.println("Informe o nome do cliente: ");
+		nome = scanner.next();
+		return nome;
+	}
+	
+	public void notaFiscal(List<Carrinho> itensNoCarrinho, String cliente) {
+		CarrinhoController carrinho = new CarrinhoController();
+		carrinho.listarProdutosCarrinho(itensNoCarrinho);
+		System.out.println("Cliente: " + cliente);
+	}
+	
 	public int opcao() {
 		System.out.println("> ");
 		return scanner.nextInt();

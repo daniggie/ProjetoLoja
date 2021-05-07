@@ -64,13 +64,4 @@ public class CarrinhoController {
 		return produtosComprados;
 	}
 
-	public void fecharFaturaCarrinho(List<Carrinho> produtosComprados) {
-		float precoTotal = 0;
-		for (int i = 0; i < produtosComprados.size(); i++) {
-			precoTotal += produtosComprados.get(i).getPrecoFinalProdutoComprado();
-		}
-		System.out.println("Preço final: " + precoTotal);
-		produtosComprados.removeAll(produtosComprados);
-		System.out.println("Pagamento realizado!");
-	}
 }

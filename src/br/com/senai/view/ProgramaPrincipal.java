@@ -18,6 +18,9 @@ public class ProgramaPrincipal {
 		CarrinhoController carrinhoController = new CarrinhoController();
 		
 		boolean sair = false;
+		
+		String cliente = lojaController.definirCliente();
+		
 		do {
 			lojaController.menu();
 			int opcao = lojaController.opcao();
@@ -42,7 +45,7 @@ public class ProgramaPrincipal {
 				carrinhoController.listarProdutosCarrinho(carrinhos);
 				break;
 			case 7:
-				carrinhoController.fecharFaturaCarrinho(carrinhos);
+				lojaController.notaFiscal(carrinhos, cliente);
 				break;
 			case 9:
 				sair = true;

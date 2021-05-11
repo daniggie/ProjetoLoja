@@ -1,55 +1,54 @@
 package br.com.senai.model;
 
-public class CarrinhoModel{
-	// Atributos
-	private String nomeDoProdutoComprado;
-	private double precoDoProdutoComprado;
-	private int quantidadeDoProdutoComprado;
-	private double PrecoFinalProdutoComprado;
+public class CarrinhoModel {
 
-	// Construtores
+	private int quantidadeDeItensNoCarrinho;
+	private int idDoProduto;
+	private ProdutoModel produtoModel;
+	private double valorTotalPorItem;
+
 	public CarrinhoModel() {
 	}
 
-	public CarrinhoModel(String nomeDoProdutoComprado, double precoDoProdutoComprado, int quantidadeDoProdutoComprado,
-			double PrecoFinalProdutoComprado) {
+	public CarrinhoModel(int quantidadeDeItensNoCarrinho, int idDoProduto, ProdutoModel produtoModel,
+			double valorTotalPorItem) {
 		super();
-		this.nomeDoProdutoComprado = nomeDoProdutoComprado;
-		this.precoDoProdutoComprado = precoDoProdutoComprado;
-		this.quantidadeDoProdutoComprado = quantidadeDoProdutoComprado;
-		this.PrecoFinalProdutoComprado = PrecoFinalProdutoComprado;
+		this.quantidadeDeItensNoCarrinho = quantidadeDeItensNoCarrinho;
+		this.idDoProduto = idDoProduto;
+		this.produtoModel = produtoModel;
+		this.valorTotalPorItem = valorTotalPorItem;
 	}
 
-	public String getNomeDoProdutoComprado() {
-		return nomeDoProdutoComprado;
+	public int getQuantidadeDeItensNoCarrinho() {
+		return quantidadeDeItensNoCarrinho;
 	}
 
-	public void setNomeDoProdutoComprado(String nomeDoProdutoComprado) {
-		this.nomeDoProdutoComprado = nomeDoProdutoComprado;
+	public void setQuantidadeDeItensNoCarrinho(int quantidadeDeItensNoCarrinho) {
+		this.quantidadeDeItensNoCarrinho = quantidadeDeItensNoCarrinho;
 	}
 
-	public double getPrecoDoProdutoComprado() {
-		return precoDoProdutoComprado;
+	public int getIdDoProduto() {
+		return idDoProduto;
 	}
 
-	public void setPrecoDoProdutoComprado(double precoDoProdutoComprado) {
-		this.precoDoProdutoComprado = precoDoProdutoComprado;
+	public void setIdDoProduto(int idDoProduto) {
+		this.idDoProduto = idDoProduto;
 	}
 
-	public int getQuantidadeDoProdutoComprado() {
-		return quantidadeDoProdutoComprado;
+	public ProdutoModel getProdutoModel() {
+		return produtoModel;
 	}
 
-	public void setQuantidadeDoProdutoComprado(int quantidadeDoProdutoComprado) {
-		this.quantidadeDoProdutoComprado = quantidadeDoProdutoComprado;
+	public void setProdutoModel(ProdutoModel produtoModel) {
+		this.produtoModel = produtoModel;
 	}
 
-	public double getPrecoFinalProdutoComprado() {
-		return PrecoFinalProdutoComprado;
+	public double getValorTotalPorItem() {
+		return valorTotalPorItem;
 	}
 
-	public void setPrecoFinalProdutoComprado(double precoFinalProdutoComprado) {
-		PrecoFinalProdutoComprado = precoFinalProdutoComprado;
+	public void setValorTotalPorItem(double valorTotalPorItem) {
+		this.valorTotalPorItem = valorTotalPorItem;
 	}
 
 }

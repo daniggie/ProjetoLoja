@@ -6,26 +6,37 @@ import br.com.senai.model.CarrinhoModel;
 
 public class ListaCarrinho {
 	
-	public List<CarrinhoModel> listarProdutosCarrinho(List<CarrinhoModel> produtosComprados) {
-		System.out.printf("\n----------------- SEU CARRINHO ---------------\n");
-		System.out.printf("| %2s | %10s | %10s | %4s | %10s |\n", "ID", "Produto", " Preco", "Qtd ", "R$ Total");
-		for (int i = 0; i < produtosComprados.size(); i++) {
-			System.out.printf("| %2s | %10s | R$%8.2f | %4s | R$%8.2f |\n", i + 1,
-					produtosComprados.get(i).getNomeDoProdutoComprado(),
-					produtosComprados.get(i).getPrecoDoProdutoComprado(),
-					produtosComprados.get(i).getQuantidadeDoProdutoComprado(),
-					produtosComprados.get(i).getPrecoFinalProdutoComprado());
+	public List<CarrinhoModel> listarItensNoCarrinho(List<CarrinhoModel> itensNoCarrinho) {
+		System.out.println("--- ITENS NO CARRINHO ---");
+		System.out.printf("| %2s | %10s | %8s | %4s | %9s |\n", "ID", "Produto", "Preço", "Qtd", "R$ Total");
+
+		if (itensNoCarrinho.size() <= 0) {
+			return null;
 		}
-		
-		float precoTotal = 0;
-		for (int i = 0; i < produtosComprados.size(); i++) {
-			precoTotal += produtosComprados.get(i).getPrecoFinalProdutoComprado();
-		}
-		
-		System.out.printf("| %3s  %10s  %10s  %6s | R$%8.2f |\n", "", "", "", "Total", precoTotal);
-		
-		return produtosComprados;
+
+		itensNoCarrinho.forEach(item -> {
+			System.out.printf("| %2s | %10s | R$%6.2f | %4s | R$%7.2f |\n", item.getIdDoProduto(),
+					item.getProdutoModel().getNomeDoProduto(), item.getProdutoModel().getPrecoDoProduto(),
+					item.getQuantidadeDeItensNoCarrinho(), item.getValorTotalPorItem());
+		});
+
+		double valorTotalDocarrinho = itensNoCarrinho.stream().mapToDouble(item -> item.getValorTotalPorItem()).sum();
+		// CarrinhoModel::getValorTotalPorItem
+
+		System.out.println("Valor total: R$" + valorTotalDocarrinho);
+
+		return itensNoCarrinho;
 	}
-
-
+	
+	public void gerarCupom(List<CarrinhoModel> itensNoCarrinho, String cliente) {
+		ListaCarrinho listaCarrinho = new ListaCarrinho();
+		
+		if(itensNoCarrinho.size() <= 0) {
+			System.out.println("Lista vazia.");
+			return;
+		}
+		
+		listaCarrinho.listarItensNoCarrinho(itensNoCarrinho);
+		System.out.println("Cliente: " + cliente);
+	}
 }

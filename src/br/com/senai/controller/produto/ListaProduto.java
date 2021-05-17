@@ -12,8 +12,6 @@ public class ListaProduto {
 		connection = DatabaseConection.getInstance().getConnection();
 	}
 	
-	
-	
 	public ResultSet listarProdutos() {
 		java.sql.PreparedStatement preparedStatement;
 		try {

@@ -6,10 +6,14 @@ public class ProdutoModel {
 	private String nomeDoProduto;
 	private double precoDoProduto;
 	private int quantidadeDeProduto;
-	private double saldoEmEstoque;
+	private double saldoEmEstoque = quantidadeDeProduto*precoDoProduto;
 
 	// CONSTRUCTORS
 	public ProdutoModel() {
+	}
+	public ProdutoModel(String nomeDoProduto, double precoDoProduto) {
+		this.nomeDoProduto = nomeDoProduto;
+		this.precoDoProduto = precoDoProduto;
 	}
 
 	public ProdutoModel(String nomeDoProduto, double precoDoProduto, int quantidadeDeProduto, double saldoEmEstoque) {

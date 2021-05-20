@@ -1,18 +1,16 @@
 package br.com.senai.view;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.senai.controller.Controller;
 import br.com.senai.controller.carrinho.AdicionaItemNoCarrinho;
 import br.com.senai.controller.carrinho.ListaCarrinho;
+import br.com.senai.controller.carrinho.PagarCarrinho;
+import br.com.senai.controller.carrinho.RemoverDoCarrinho;
 import br.com.senai.controller.cliente.AdicionaCliente;
 import br.com.senai.controller.produto.CadastraProduto;
 import br.com.senai.controller.produto.DeletaProduto;
 import br.com.senai.controller.produto.EditaProduto;
 import br.com.senai.controller.produto.ListaProduto;
-import br.com.senai.model.CarrinhoModel;
-import br.com.senai.model.ProdutoModel;
 
 public class ProgramaPrincipal {
 	public static void main(String[] args) {
@@ -26,10 +24,12 @@ public class ProgramaPrincipal {
 		EditaProduto editaProduto = new EditaProduto();
 		DeletaProduto deletaProduto = new DeletaProduto();
 		AdicionaCliente adicionaCliente = new AdicionaCliente();
+		RemoverDoCarrinho removerDoCarrinho = new RemoverDoCarrinho();
+		PagarCarrinho pagarCarrinho = new PagarCarrinho();
 
 		boolean sair = false;
 		
-		String cliente = adicionaCliente.definirCliente();
+		String cliente = "";
 
 		do {
 			produtoController.menu();
@@ -52,10 +52,16 @@ public class ProgramaPrincipal {
 				adicionaItemNoCarrinho.cadastrarItemNoCarrinho();
 				break;
 			case 6:
-				listaCarrinho.listarCarrinho();
+				listaCarrinho.listarCarrinho(cliente);
 				break;
 			case 7:
-				//listaCarrinho.gerarCupom(itensNoCarrinho, cliente);
+				removerDoCarrinho.removerProduto(cliente);
+				break;
+			case 8:
+				pagarCarrinho.PagaCarrinho(cliente);
+				break;
+			case 0:
+				cliente = adicionaCliente.definirCliente();
 				break;
 			case 9:
 				sair = true;

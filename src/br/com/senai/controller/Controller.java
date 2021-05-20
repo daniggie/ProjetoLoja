@@ -20,11 +20,13 @@ public class Controller {
 		System.out.println("1) Cadastrar itens");
 		System.out.println("2) Listar estoque");
 		System.out.println("3) Editar item");
-		System.out.println("4) Remover item");
+		System.out.println("4) Remover produto do estoque");
 		System.out.println("5) Adicionar ao carrinho");
 		System.out.println("6) Listar itens no carrinho");
-		System.out.println("7) Gerar cupom");
+		System.out.println("7) Remover produto do carrinho");
+		System.out.println("8) Pagar e remover carrinho");
 		System.out.println("9) Sair do sistema");
+		System.out.println("0) Cliente");
 		System.out.println("--------------------");
 	}
 

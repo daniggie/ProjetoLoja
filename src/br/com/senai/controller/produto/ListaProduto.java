@@ -14,8 +14,9 @@ public class ListaProduto {
 	
 	public ResultSet listarProdutos() {
 		java.sql.PreparedStatement preparedStatement;
+		double total=0; 
 		try {
-			preparedStatement = connection.prepareStatement("select * from produto");
+			preparedStatement = connection.prepareStatement("select * from produto order by nomeDoProduto asc");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
 			System.out.printf("| %2s | %15s | %8s | %4s | %9s |\n", "ID", "Produto", "Preço", "Qtd", "R$ Total");
@@ -27,8 +28,11 @@ public class ListaProduto {
 						resultSet.getDouble("precoDoProduto"),
 						resultSet.getInt("quantidadeDeProduto"),
 						resultSet.getDouble("saldoEmEstoque"));
+				total += resultSet.getDouble("saldoEmEstoque");
+				
 			}
-			
+			System.out.printf("| -------------------------------------------------- |\n");
+			System.out.printf("| TOTAL R$ %41s |\n", total);
 			return resultSet;
 		} catch (Exception e) {
 			return null;

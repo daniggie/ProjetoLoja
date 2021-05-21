@@ -15,8 +15,13 @@ public class PagarCarrinho {
 		connection = DatabaseConection.getInstance().getConnection();
 	}
 	
-	public void PagaCarrinho(String cliente) {
+	public void PagaCarrinho(int idCliente) {
 		ListaCarrinho listaCarrinho = new ListaCarrinho();
+		
+		if(idCliente == 0) {
+			System.out.println("Precisa LOGAR para poder pagar o carrinho.");
+			return;
+		}
 				
 		try {
 			PreparedStatement preparedStatement;
@@ -28,18 +33,20 @@ public class PagarCarrinho {
 				return;
 			}
 			
-			System.out.println("Gerando Nota FISCAL...\n");
-			listaCarrinho.listarCarrinho(cliente);
+			System.out.println("\n\nNOTA FISCAL\n\n");
+			listaCarrinho.listarCarrinho(idCliente);
 			
-			String sql = "TRUNCATE TABLE carrinho";
+			String sql = "DELETE FROM carrinho WHERE idCliente = ?";
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, idCliente);
 			preparedStatement.execute();
 			
 			System.out.println("Pagamento realizado com sucesso!");
 			return;
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return;
 		}
 	}
 	

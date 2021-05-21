@@ -7,6 +7,7 @@ import br.com.senai.controller.carrinho.ListaCarrinho;
 import br.com.senai.controller.carrinho.PagarCarrinho;
 import br.com.senai.controller.carrinho.RemoverDoCarrinho;
 import br.com.senai.controller.cliente.AdicionaCliente;
+import br.com.senai.controller.cliente.EscolheCliente;
 import br.com.senai.controller.produto.CadastraProduto;
 import br.com.senai.controller.produto.DeletaProduto;
 import br.com.senai.controller.produto.EditaProduto;
@@ -17,19 +18,25 @@ public class ProgramaPrincipal {
 		
 
 		Controller produtoController = new Controller();
+		
 		ListaCarrinho listaCarrinho = new ListaCarrinho();
 		AdicionaItemNoCarrinho adicionaItemNoCarrinho = new AdicionaItemNoCarrinho();
+		RemoverDoCarrinho removerDoCarrinho = new RemoverDoCarrinho();
+		PagarCarrinho pagarCarrinho = new PagarCarrinho();
+		
 		CadastraProduto cadastraProduto = new CadastraProduto();
 		ListaProduto listaProduto = new ListaProduto();
 		EditaProduto editaProduto = new EditaProduto();
 		DeletaProduto deletaProduto = new DeletaProduto();
+		
 		AdicionaCliente adicionaCliente = new AdicionaCliente();
-		RemoverDoCarrinho removerDoCarrinho = new RemoverDoCarrinho();
-		PagarCarrinho pagarCarrinho = new PagarCarrinho();
+		EscolheCliente escolheCliente = new EscolheCliente();
+		
+		
 
 		boolean sair = false;
 		
-		String cliente = "";
+		int idCliente = 0;
 
 		do {
 			produtoController.menu();
@@ -49,19 +56,22 @@ public class ProgramaPrincipal {
 				deletaProduto.removerProduto();
 				break;
 			case 5:
-				adicionaItemNoCarrinho.cadastrarItemNoCarrinho();
+				adicionaItemNoCarrinho.cadastrarItemNoCarrinho(idCliente);
 				break;
 			case 6:
-				listaCarrinho.listarCarrinho(cliente);
+				listaCarrinho.listarCarrinho(idCliente);
 				break;
 			case 7:
-				removerDoCarrinho.removerProduto(cliente);
+				removerDoCarrinho.removerProduto(idCliente);
 				break;
 			case 8:
-				pagarCarrinho.PagaCarrinho(cliente);
+				pagarCarrinho.PagaCarrinho(idCliente);
 				break;
 			case 0:
-				cliente = adicionaCliente.definirCliente();
+				adicionaCliente.adicionarCliente();
+				break;
+			case 10:	
+				idCliente = escolheCliente.RetornaIdCliente();
 				break;
 			case 9:
 				sair = true;

@@ -8,7 +8,7 @@ import java.util.Scanner;
 import br.com.dao.DatabaseConection;
 
 public class RemoverDoCarrinho {
-
+	// OKAY
 	Scanner entrada = new Scanner(System.in);
 	ListaCarrinho listaCarrinho;
 	private Connection connection;
@@ -17,13 +17,14 @@ public class RemoverDoCarrinho {
 		connection = DatabaseConection.getInstance().getConnection();
 	}
 
-	public boolean VerificaSeExiste(int idDoProduto) {
+	public boolean VerificaSeExiste(int idDoProduto, int idCliente) {
 		PreparedStatement preparedStatement;
 
 		try {
-			String sql = "SELECT * FROM carrinho WHERE codigo = ?";
+			String sql = "SELECT * FROM carrinho WHERE codigo = ? AND idCliente = ?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, idDoProduto);
+			preparedStatement.setInt(2, idCliente);
 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
@@ -65,18 +66,23 @@ public class RemoverDoCarrinho {
 		}
 	}
 
-	public void removerProduto(String cliente) {
+	public void removerProduto(int idCliente) {
 		PreparedStatement preparedStatement;
 		listaCarrinho = new ListaCarrinho();
+		
+		if(idCliente == 0) {
+			System.out.println("Precisa LOGAR para poder remover do carrinho.");
+			return;
+		}
 
 		System.out.println("--- REMOVER PRODUTO ---");
-		if (listaCarrinho.listarCarrinho(cliente) == null) {
+		if (listaCarrinho.listarCarrinho(idCliente) == null) {
 			return;
 		}
 
 		System.out.print("Informe o ID do produto a ser removido: ");
 		int idDoProduto = entrada.nextInt();
-		if (VerificaSeExiste(idDoProduto)) {
+		if (VerificaSeExiste(idDoProduto, idCliente)) {
 			return;
 		}
 
@@ -89,16 +95,17 @@ public class RemoverDoCarrinho {
 				return;
 			}
 
-			String sql = "SELECT quantideDeProduto, precoDoProduto FROM carrinho WHERE codigo = ?";
+			String sql = "SELECT quantideDeProduto, precoDoProduto FROM carrinho WHERE codigo = ? AND idCliente = ?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, idDoProduto);
+			preparedStatement.setInt(2, idCliente);
+
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next();
 			int quantidadeCarrinho = resultSet.getInt("quantideDeProduto");
 			double precoDoProduto = resultSet.getDouble("precoDoProduto");
 			double precoRetirado = precoDoProduto * quantidadeRemovida;
-			System.out.println("PASSO 1");
-						
+
 			preparedStatement.clearParameters();
 			sql = "SELECT quantidadeDeProduto, saldoEmEstoque FROM produto WHERE codigo = ?";
 			preparedStatement = connection.prepareStatement(sql);
@@ -107,7 +114,6 @@ public class RemoverDoCarrinho {
 			resultSet.next();
 			int quantidadeEstoque = resultSet.getInt("quantidadeDeProduto");
 			double precoAntigo = resultSet.getDouble("saldoEmEstoque");
-			System.out.println("PASSO 2");
 			int newQuantidadeCarrinho = quantidadeCarrinho - quantidadeRemovida;
 
 			preparedStatement.clearParameters();
@@ -118,16 +124,25 @@ public class RemoverDoCarrinho {
 			preparedStatement.setInt(3, idDoProduto);
 			preparedStatement.execute();
 			preparedStatement.clearParameters();
-			
-			System.out.println("PASSO 3");
-			
+
 			double newTotal = newQuantidadeCarrinho * precoDoProduto;
-			sql = "UPDATE carrinho SET quantideDeProduto = ?, totalCarrinho = ? WHERE codigo = ?";
+			sql = "UPDATE carrinho SET quantideDeProduto = ?, totalCarrinho = ? WHERE codigo = ? AND idCliente = ?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, newQuantidadeCarrinho);
 			preparedStatement.setDouble(2, newTotal);
 			preparedStatement.setInt(3, idDoProduto);
+			preparedStatement.setInt(4, idCliente);
 			preparedStatement.execute();
+			
+			if(newQuantidadeCarrinho==0) {
+				sql = "DELETE FROM carrinho WHERE codigo = ? AND idCliente = ?";
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, idDoProduto);
+				preparedStatement.setInt(2, idCliente);
+				preparedStatement.execute();
+			}else {
+				System.out.println("nn deleto");
+			}
 			
 			System.out.println("Removido!");
 

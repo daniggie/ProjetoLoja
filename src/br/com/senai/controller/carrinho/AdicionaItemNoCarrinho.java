@@ -33,7 +33,8 @@ public class AdicionaItemNoCarrinho {
 			preparedStatement.setInt(1, idDoProduto);
 
 			ResultSet resultSet = preparedStatement.executeQuery();
-
+			resultSet.next();
+			
 			if (resultSet.next()) {
 				System.out.println("Este produto não foi cadastrado.");
 				return false;
@@ -48,7 +49,13 @@ public class AdicionaItemNoCarrinho {
 	}
 
 	@SuppressWarnings("resource")
-	public void cadastrarItemNoCarrinho() {
+	public void cadastrarItemNoCarrinho(int idCliente) {
+		
+		if(idCliente == 0) {
+			System.out.println("Precisa LOGAR para poder adicionar ao carrinho.");
+			return;
+		}
+		
 		listaProduto = new ListaProduto();
 		editaProduto = new EditaProduto();
 		produtoModel = new ProdutoModel();
@@ -62,7 +69,6 @@ public class AdicionaItemNoCarrinho {
 
 		try {
 
-			System.out.println("PASSO 1");
 			String sql = "SELECT * FROM produto WHERE codigo = ?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
@@ -78,7 +84,7 @@ public class AdicionaItemNoCarrinho {
 				nomeDoProduto = resultSet.getString("nomeDoProduto");
 			}
 
-			System.out.println("PASSO 2");
+			System.out.println("PASSO 2 ID: "+idCliente);
 
 			System.out.print("Informe a quantidade desejada: ");
 			int quantidadeDesejada = entrada.nextInt();
@@ -87,9 +93,10 @@ public class AdicionaItemNoCarrinho {
 				return;
 			}
 
-			sql = "SELECT * FROM carrinho WHERE codigo = ?";
+			sql = "SELECT * FROM carrinho WHERE codigo = ? AND idCliente = ?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
+			preparedStatement.setInt(2, idCliente);
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
@@ -97,23 +104,25 @@ public class AdicionaItemNoCarrinho {
 				double preco = resultSet.getDouble("precoDoProduto");
 				double precoTotal = preco * (quantidadeDesejada + newQuantidade);
 
-				sql = "UPDATE carrinho SET quantideDeProduto = ?, totalCarrinho = ? WHERE codigo = ?";
+				sql = "UPDATE carrinho SET quantideDeProduto = ?, totalCarrinho = ? WHERE codigo = ? AND idCliente = ?";
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, quantidadeDesejada + newQuantidade);
 				preparedStatement.setDouble(2, precoTotal);
 				preparedStatement.setInt(3, id);
+				preparedStatement.setInt(4, idCliente);
 				preparedStatement.execute();
 			} else {
 
 				double valorTotal = quantidadeDesejada * precoDoProduto;
 
-				sql = "INSERT INTO carrinho VALUES(null, ?, ?, ?, ?, ?)";
+				sql = "INSERT INTO carrinho VALUES(null, ?, ?, ?, ?, ?, ?)";
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, id);
 				preparedStatement.setString(2, nomeDoProduto);
 				preparedStatement.setInt(3, quantidadeDesejada);
 				preparedStatement.setDouble(4, precoDoProduto);
 				preparedStatement.setDouble(5, valorTotal);
+				preparedStatement.setInt(6, idCliente);
 				preparedStatement.execute();
 			}
 
